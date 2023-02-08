@@ -1,0 +1,67 @@
+@import '../../../../node_modules/@kvib/css/main.css';
+
+.kv-side-menu {
+    display: flex;
+    align-items: center;
+    position: relative;
+    color: #222222;
+    background: #FFFFFF;
+    width: fit-content;
+    gap: 8px;
+}
+
+.kv-side-menu__vertical {
+    flex-direction: column;
+}
+
+.kv-side-menu__horizontal {
+    flex-direction: row;
+}
+
+.kv-side-menu__item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: #213060;
+    width: 108px;
+    height: 70px;
+    cursor: pointer;
+    box-sizing: border-box;
+}
+
+.kv-side-menu__item > .kv-side-menu__item__label {
+    color: #222222;
+}
+
+.kv-side-menu__item:hover {
+    background: #E4F1F8;
+    color: #222222;
+}
+
+.kv-side-menu__item__label {
+    font-size: 12px;
+    line-height: 16px;
+}
+
+.kv-side-menu__item:active,
+.kv-side-menu__item:focus-visible {
+    background: #E4F1F8;
+    box-shadow: #175092 3px 0 0 0 inset;
+    color: #175092;
+}
+
+.kv-side-menu__item:active > .kv-side-menu__item__label,
+.kv-side-menu__item:focus-visible > .kv-side-menu__item__label {
+    color: #175092;
+}
+
+
+
+.kv-side-menu__item__icon > .material-symbols-outlined {
+    font-size: 36px;
+    user-select: none;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+}
