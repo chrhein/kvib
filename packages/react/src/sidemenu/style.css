@@ -45,7 +45,9 @@
 }
 
 .kv-side-menu__item:active,
-.kv-side-menu__item:focus-visible {
+.kv-side-menu__item:focus-visible,
+.kv-side-menu__item__selected
+{
     background: #E4F1F8;
     box-shadow: #175092 3px 0 0 0 inset;
     color: #175092;
