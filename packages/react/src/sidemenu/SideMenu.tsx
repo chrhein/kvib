@@ -53,11 +53,12 @@ const SideMenuItem = forwardRef<HTMLDivElement, SideMenuItemProps>(
 
     return (
       <div
-        className={`kv-side-menu__item ${
-          selected && "kv-side-menu__item__selected"
+        className={`kv-side-menu__item${
+          selected ? " kv-side-menu__item__selected" : ""
         }`}
         onClick={handleClick}
         ref={ref}
+        {...props}
       >
         <div className="kv-side-menu__item__icon">
           <span className="material-symbols-outlined">{icon}</span>
