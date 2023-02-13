@@ -9,13 +9,13 @@ import "./style.css";
 
 export interface SideMenuProps extends ComponentPropsWithoutRef<"div"> {
   direction?: "horizontal" | "vertical";
-  items?: SideMenuItemProps[];
+  items: SideMenuItemProps[];
 }
 
 export interface SideMenuItemProps extends ComponentPropsWithoutRef<"div"> {
   icon?: string;
   label?: string;
-  index?: number;
+  index: number;
   selected: boolean;
   setSelected: Dispatch<SetStateAction<number>>;
 }
@@ -25,7 +25,7 @@ export const SideMenu = forwardRef<HTMLDivElement, SideMenuProps>(
     const [selected, setSelected] = useState<number>(0);
     return (
       <div className={`kv-side-menu kv-side-menu__${direction}`} ref={ref}>
-        {items?.map((item, index) => {
+        {items.map((item, index) => {
           return (
             <SideMenuItem
               key={index}
@@ -45,18 +45,12 @@ export const SideMenu = forwardRef<HTMLDivElement, SideMenuProps>(
 
 const SideMenuItem = forwardRef<HTMLDivElement, SideMenuItemProps>(
   ({ icon, label, index, selected, setSelected, ...props }, ref) => {
-    const handleClick = () => {
-      if (index !== undefined) {
-        setSelected(index);
-      }
-    };
-
     return (
       <div
         className={`kv-side-menu__item${
           selected ? " kv-side-menu__item__selected" : ""
         }`}
-        onClick={handleClick}
+        onClick={() => setSelected(index)}
         ref={ref}
         {...props}
       >
