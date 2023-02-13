@@ -1,4 +1,10 @@
-import React, { ComponentPropsWithoutRef, Dispatch, SetStateAction, useState } from "react";
+import React, {
+  ComponentPropsWithoutRef,
+  Dispatch,
+  forwardRef,
+  SetStateAction,
+  useState,
+} from "react";
 import "./style.css";
 
 export interface SideMenuProps extends ComponentPropsWithoutRef<"div"> {
@@ -14,37 +20,50 @@ export interface SideMenuItemProps extends ComponentPropsWithoutRef<"div"> {
   setSelected: Dispatch<SetStateAction<number>>;
 }
 
-export const SideMenu = (props: SideMenuProps) => {
-  const direction = props.direction || "vertical";
-  const [selected, setSelected] = useState<number>(0);
-  return <div className={`kv-side-menu kv-side-menu__${direction}`}>
-    {props.items?.map((item, index) => {
-      return <SideMenuItem
-        key={index}
-        icon={item.icon}
-        label={item.label}
-        index={index}
-        selected={index === selected}
-        setSelected={setSelected}
-      />;
-    })}
-  </div>;
-};
-
-const SideMenuItem = (props: SideMenuItemProps) => {
-  const { selected, setSelected } = props;
-  const handleClick = () => {
-    if (props.index !== undefined) {
-      setSelected(props.index);
-    }
-  };
-
-  return (
-    <div className={`kv-side-menu__item ${selected && "kv-side-menu__item__selected"}`} onClick={handleClick}>
-      <div className="kv-side-menu__item__icon">
-        <span className="material-symbols-outlined">{props.icon}</span>
+export const SideMenu = forwardRef<HTMLDivElement, SideMenuProps>(
+  ({ direction = "vertical", items, ...props }, ref) => {
+    const [selected, setSelected] = useState<number>(0);
+    return (
+      <div className={`kv-side-menu kv-side-menu__${direction}`} ref={ref}>
+        {items?.map((item, index) => {
+          return (
+            <SideMenuItem
+              key={index}
+              icon={item.icon}
+              label={item.label}
+              index={index}
+              selected={index === selected}
+              setSelected={setSelected}
+              {...props}
+            />
+          );
+        })}
       </div>
-      <div className="kv-side-menu__item__label">{props.label}</div>
-    </div>
-  );
-};
+    );
+  },
+);
+
+const SideMenuItem = forwardRef<HTMLDivElement, SideMenuItemProps>(
+  ({ icon, label, index, selected, setSelected, ...props }, ref) => {
+    const handleClick = () => {
+      if (index !== undefined) {
+        setSelected(index);
+      }
+    };
+
+    return (
+      <div
+        className={`kv-side-menu__item ${
+          selected && "kv-side-menu__item__selected"
+        }`}
+        onClick={handleClick}
+        ref={ref}
+      >
+        <div className="kv-side-menu__item__icon">
+          <span className="material-symbols-outlined">{icon}</span>
+        </div>
+        <div className="kv-side-menu__item__label">{label}</div>
+      </div>
+    );
+  },
+);
